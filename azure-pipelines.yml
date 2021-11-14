@@ -1,0 +1,33 @@
+trigger:
+  - main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - checkout: self
+    submodules: true
+  - task: AzureStaticWebApp@0
+    inputs:
+      app_location: '/'
+      api_location: ''
+      output_location: '/'
+      azure_static_web_apps_api_token: $(deployment_token)
+
+trigger:
+- staging
+- dev
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - checkout: self
+    submodules: true
+  - task: AzureStaticWebApp@0
+    inputs:
+      app_location: '/'
+      api_location: ''
+      output_location: '/'
+      skip_app_build: true
+      azure_static_web_apps_api_token: $(deployment_token)
